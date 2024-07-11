@@ -1,0 +1,14 @@
+pandas
+numpy 
+flask
+bs4
+requests
+fake_useragent
+gunicorn
+autoscraper
+cryptography
+prometheus_client
+Flask-Limiter
+flask-cors
+flasgger
+python-dotenv

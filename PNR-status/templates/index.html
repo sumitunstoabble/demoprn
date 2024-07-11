@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNR Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>PNR Status</h1>
+        <form method="post">
+            <input type="text" name="pnr" placeholder="Enter PNR Number" required>
+            <button type="submit">Check Status</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if data %}
+            <h2>PNR Number: {{ data['PNR Number'] }}</h2>
+            <h2>Train Information</h2>
+            <table>
+                <tr>
+                    <th>Train Number</th>
+                    <td>{{ data['Train Number'] }}</td>
+                </tr>
+                <tr>
+                    <th>Train Name</th>
+                    <td>{{ data['Train Name'] }}</td>
+                </tr>
+                <tr>
+                    <th>Boarding Station</th>
+                    <td>{{ data['Boarding Station'] }} ({{ data['Departure Time'] }})</td>
+                </tr>
+                <tr>
+                    <th>Destination Station</th>
+                    <td>{{ data['Destination Station'] }} ({{ data['Arrival Time'] }})</td>
+                </tr>
+                <tr>
+                    <th>Boarding Date</th>
+                    <td>{{ data['Boarding Date'] }}</td>
+                </tr>
+            </table>
+
+            <h2>Passenger Information</h2>
+            <table>
+                <tr>
+                    <th>Passenger Number</th>
+                    <th>Booking Status</th>
+                    <th>Current Status</th>
+                    <th>Coach</th>
+                    <th>Booking Berth No</th>
+                    <th>Current Berth No</th>
+                </tr>
+                {% for passenger in data['Passengers'] %}
+                <tr>
+                    <td>{{ passenger['Passenger Number'] }}</td>
+                    <td>{{ passenger['Booking Status'] }}</td>
+                    <td>{{ passenger['Current Status'] }}</td>
+                    <td>{{ passenger['Coach'] }}</td>
+                    <td>{{ passenger['Booking Berth No'] }}</td>
+                    <td>{{ passenger['Current Berth No'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
